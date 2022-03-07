@@ -10,6 +10,7 @@ on:
       - requirements-test-withpsycopg.txt
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   tests:
@@ -80,9 +81,3 @@ jobs:
     - name: Run test noproc fixture on docker
       run: |
         pytest -n 0 -k docker --postgresql-host=localhost --postgresql-port 5433 --postgresql-password=postgres --cov-report=xml:coverage-docker.xml
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v2.1.0
-      with:
-        flags: linux
-        env_vars: OS, PYTHON, POSTGRES
-        fail_ci_if_error: true
